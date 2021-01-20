@@ -1,7 +1,5 @@
 #!ipxe
 
-set boot-url http://192.168.5.40
-
 :custom
 clear custom_choice
 menu Custom Github Menu
