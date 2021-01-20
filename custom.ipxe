@@ -15,7 +15,7 @@ goto custom_exit
 :custom_exit
 exit
 
-:bootstrap_pop
+:bootstrap_popos
 imgfree
 kernel ${boot-url}/distros/popos/vmlinuz ip=dhcp boot=casper netboot=url url=${boot-url}/distros/popos/filesystem.squashfs initrd=initrd hostname=pop-os username=pop-os noprompt bootstrap_file=${boot-url}/distros/popos/bootstrap.sh ---
 initrd ${boot-url}/distros/popos/initrd
