@@ -15,6 +15,6 @@ exit
 
 :bootstrap_popos
 imgfree
-kernel ${boot-url}/distros/popos/vmlinuz ip=dhcp boot=casper netboot=url url=${boot-url}/distros/popos/filesystem.squashfs initrd=initrd hostname=pop-os username=pop-os noprompt bootstrap_file=${boot-url}/distros/popos/bootstrap.sh ---
-initrd ${boot-url}/distros/popos/initrd
+kernel ${boot-url}/distros/popos/flatcar_production_pxe.vmlinuz flatcar.autologin=tty1 flatcar.autologin=ttyS0 initrd=flatcar_production_pxe_image.cpio.gz flatcar.first_boot=1 flatcar.config.url=${boot-url}/distros/popos/ign.json
+initrd ${boot-url}/distros/popos/flatcar_production_pxe_image.cpio.gz
 boot || goto custom_exit
