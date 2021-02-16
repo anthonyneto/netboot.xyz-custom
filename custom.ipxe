@@ -5,8 +5,8 @@ clear custom_choice
 menu Custom Github Menu
 item --gap Bootstrap(These options will format disk)
 item bootstrap_popos ${space} PopOS
-item --gap Dell2950
-item dell2950 ${space} Dell2950
+item --gap Test Memdisk
+item test_memdisk ${space} Test MemDisk
 choose custom_choice || goto custom_exit
 echo ${cls}
 goto ${custom_choice}
@@ -21,8 +21,9 @@ kernel ${boot-url}/distros/popos/flatcar_production_pxe.vmlinuz flatcar.autologi
 initrd ${boot-url}/distros/popos/flatcar_production_pxe_image.cpio.gz
 boot || goto custom_exit
 
-:dell2950
+:test_memdisk
 imgfree
+echo -n URL: ${} && read url
 kernel ${memdisk}
-initrd http://192.168.5.40/test/dell2950.zip
+initrd ${url}
 boot || goto custom_exit
