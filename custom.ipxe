@@ -5,6 +5,8 @@ clear custom_choice
 menu Custom Github Menu
 item --gap Bootstrap(These options will format disk)
 item bootstrap_popos ${space} PopOS
+item --gap Dell2950(These options will format disk)
+item dell2950 ${space} Dell2950
 choose custom_choice || goto custom_exit
 echo ${cls}
 goto ${custom_choice}
@@ -17,4 +19,10 @@ exit
 imgfree
 kernel ${boot-url}/distros/popos/flatcar_production_pxe.vmlinuz flatcar.autologin=tty1 flatcar.autologin=ttyS0 initrd=flatcar_production_pxe_image.cpio.gz flatcar.first_boot=1 flatcar.config.url=${boot-url}/distros/popos/ign.json
 initrd ${boot-url}/distros/popos/flatcar_production_pxe_image.cpio.gz
+boot || goto custom_exit
+
+:dell2950
+imgfree
+kernel ${memdisk}
+initrd ${boot-url}/test/dell2950.zip
 boot || goto custom_exit
