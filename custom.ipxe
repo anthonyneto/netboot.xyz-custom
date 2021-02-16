@@ -24,5 +24,5 @@ boot || goto custom_exit
 :dell2950
 imgfree
 kernel ${memdisk}
-initrd ${boot-url}/test/dell2950.zip
+initrd http://192.168.5.40/test/dell2950.zip
 boot || goto custom_exit
