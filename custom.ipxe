@@ -14,6 +14,7 @@ goto custom_exit
 exit
 
 :flatcar_live
+chain --autofree http://boot.netboot.xyz
 imgfetch https://nginx.theneto.com/flatcar/current/flatcar_production_image.vmlinuz || goto custom_exit
 imgfetch https://nginx.theneto.com/flatcar/current/flatcar_production_pxe_image.cpio.gz || goto custom_exit
 kernel ${next-url} initrd=flatcar_production_pxe_image.cpio.gz flatcar.first_boot=1 ignition.config.url=https://nginx.theneto.com/flatcar/ignition/live.ign
