@@ -5,9 +5,9 @@ clear custom_choice
 menu Custom Github Menu
 item --gap Bootstrap(These options will format disk)
 item bootstrap_popos ${space} PopOS
-item --gap Test Memdisk
+item --gap Testing
 item test_memdisk ${space} Test MemDisk
-item flatcar-live ${space} Flatcar Live Environment
+item flatcar_live ${space} Flatcar Live
 choose custom_choice || goto custom_exit
 echo ${cls}
 goto ${custom_choice}
@@ -29,12 +29,11 @@ kernel ${memdisk}
 initrd ${url}
 boot || goto custom_exit
 
-:flatcar-live
-set base-url
+:flatcar_live
+set base-url=https://nginx.theneto.com/flatcar/current
 
-https://nginx.theneto.com/flatcar/current
-
-kernel ${base-url}/flatcar_production_pxe.vmlinuz initrd=flatcar_production_pxe_image.cpio.gz flatcar.first_boot=1 ignition.config.url=https://ngnix.theneto.com/flatcar/ignition/live.ign
+kernel ${base-url}/flatcar_production_pxe.vmlinuz initrd=flatcar_production_pxe_image.cpio.gz flatcar.first_boot=1 ignition.config.url=https://nginx.theneto.com/flatcar/ignition/live.ign
 initrd ${base-url}/flatcar_production_pxe_image.cpio.gz
 boot
 goto custom_exit
+
