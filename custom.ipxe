@@ -14,7 +14,7 @@ goto custom_exit
 exit
 
 :flatcar_live
-set base-url 192.168.5.40/flatcar/current
+set base-url http://192.168.5.40/flatcar/current
 kernel ${base-url}/flatcar_production_image.vmlinuz initrd=flatcar_production_pxe_image.cpio.gz flatcar.first_boot=1 ignition.config.url=https://nginx.theneto.com/flatcar/ignition/live.ign
 initrd ${base-url}/flatcar_production_pxe_image.cpio.gz
 boot
