@@ -3,10 +3,7 @@
 :custom
 clear custom_choice
 menu Custom Github Menu
-item --gap Bootstrap(These options will format disk)
-item bootstrap_popos ${space} PopOS
 item --gap Testing
-item test_memdisk ${space} Test MemDisk
 item flatcar_live ${space} Flatcar Live
 choose custom_choice || goto custom_exit
 echo ${cls}
@@ -16,21 +13,9 @@ goto custom_exit
 :custom_exit
 exit
 
-:bootstrap_popos
-imgfree
-kernel ${boot-url}/distros/popos/flatcar_production_pxe.vmlinuz flatcar.autologin=tty1 flatcar.autologin=ttyS0 initrd=flatcar_production_pxe_image.cpio.gz flatcar.first_boot=1 flatcar.config.url=${boot-url}/distros/popos/ign.json
-initrd ${boot-url}/distros/popos/flatcar_production_pxe_image.cpio.gz
-boot || goto custom_exit
-
-:test_memdisk
-imgfree
-echo -n URL: ${} && read url
-kernel ${memdisk}
-initrd ${url}
-boot || goto custom_exit
-
 :flatcar_live
-kernel https://nginx.theneto.com/flatcar/current/flatcar_production_image.vmlinuz initrd=flatcar_production_pxe_image.cpio.gz flatcar.first_boot=1 ignition.config.url=https://nginx.theneto.com/flatcar/ignition/live.ign
-initrd https://nginx.theneto.com/flatcar/current/flatcar_production_pxe_image.cpio.gz
+set base-url https://nginx.theneto.com/flatcar/current
+kernel ${base-url}/flatcar_production_image.vmlinuz initrd=flatcar_production_pxe_image.cpio.gz flatcar.first_boot=1 ignition.config.url=https://nginx.theneto.com/flatcar/ignition/live.ign
+initrd ${base-url}/flatcar_production_pxe_image.cpio.gz
 boot
 goto custom_exit
