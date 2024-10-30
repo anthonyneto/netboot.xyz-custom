@@ -15,9 +15,8 @@ exit
 
 :flatcar_live
 set base-url https://nginx.theneto.com/flatcar/current
-echo "Setting base URL: ${base-url}"
 imgfetch ${base-url}/flatcar_production_image.vmlinuz || goto custom_exit
 imgfetch ${base-url}/flatcar_production_pxe_image.cpio.gz || goto custom_exit
-kernel ${base-url}/flatcar_production_image.vmlinuz initrd=flatcar_production_pxe_image.cpio.gz flatcar.first_boot=1 ignition.config.url=https://nginx.theneto.com/flatcar/ignition/live.ign
-initrd ${base-url}/flatcar_production_pxe_image.cpio.gz
+kernel ${next-url} initrd=flatcar_production_pxe_image.cpio.gz flatcar.first_boot=1 ignition.config.url=https://nginx.theneto.com/flatcar/ignition/live.ign
+initrd ${next-url}
 boot
