@@ -30,10 +30,7 @@ initrd ${url}
 boot || goto custom_exit
 
 :flatcar_live
-set base-url=https://nginx.theneto.com/flatcar/current
-
-kernel ${base-url}/flatcar_production_pxe.vmlinuz initrd=flatcar_production_pxe_image.cpio.gz flatcar.first_boot=1 ignition.config.url=https://nginx.theneto.com/flatcar/ignition/live.ign
-initrd ${base-url}/flatcar_production_pxe_image.cpio.gz
+kernel https://nginx.theneto.com/flatcar/current/flatcar_production_pxe.vmlinuz initrd=flatcar_production_pxe_image.cpio.gz flatcar.first_boot=1 ignition.config.url=https://nginx.theneto.com/flatcar/ignition/live.ign
+initrd https://nginx.theneto.com/flatcar/current/flatcar_production_pxe_image.cpio.gz
 boot
 goto custom_exit
-
