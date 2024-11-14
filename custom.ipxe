@@ -23,7 +23,6 @@ goto custom_exit
 
 :truenas_scale
 kernel https://boot.netboot.xyz/memdisk iso raw
-initrd ${base-url}/flatcar_production_pxe_image.cpio.gz
 initrd http://192.168.5.40/truenas/current.iso
 boot
 goto custom_exit
