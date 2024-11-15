@@ -6,6 +6,7 @@ menu Custom Github Menu
 item --gap Testing
 item flatcar_live ${space} Flatcar Live
 item truenas_scale ${space} Truenas Scale
+item iscsi_test ${space} Iscsi Test
 choose custom_choice || goto custom_exit
 echo ${cls}
 goto ${custom_choice}
@@ -21,8 +22,13 @@ initrd ${base-url}/flatcar_production_pxe_image.cpio.gz
 boot
 goto custom_exit
 
-:truenas_scale
-kernel https://boot.netboot.xyz/memdisk iso raw
-initrd http://192.168.5.40/truenas/current.iso
-boot
+:iscsi_test
+echo Booting from iSCSI Target...
+set target_ip 192.168.5.140
+set target_iqn iqn.2005-10.org.freenas.ctl:test-1
+set target_port 3260
+set target_luns 0
+iscsi ${target_ip} ${target_port} ${target_iqn}
+sleep 3
+sanboot iscsi:${target_ip}::::${target_iqn}:${target_luns}
 goto custom_exit
