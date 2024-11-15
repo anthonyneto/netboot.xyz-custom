@@ -37,8 +37,14 @@ echo "Target Port: ${iscsi_target_port}"
 echo "Target IQN: ${iscsi_target_iqn}"
 echo "LUN: ${iscsi_lun}"
 
-# Correct iSCSI connection string
-# This follows the format: iscsi:<target-ip>::::<LUN>:<iqn>
+# iPXE initiator IQN is not necessary if TrueNAS allows all initiators
+# Optionally, you can set the initiator IQN explicitly if needed:
+# set initiator_iqn iqn.2010-04.org.ipxe:${hostname}
+
+# Debug output
+# echo "Using initiator IQN: ${initiator_iqn}"
+
+# Try to connect to the iSCSI target
 echo "Connecting to iSCSI target: ${iscsi_target_ip}:::${iscsi_lun}:${iscsi_target_iqn}..."
 sanhook iscsi:${iscsi_target_ip}::::${iscsi_lun}:${iscsi_target_iqn}
 
