@@ -23,6 +23,7 @@ boot
 goto custom_exit
 
 :iscsi_test
-sanboot iscsi:192.168.5.140:::1:iqn.2005-10.org.freenas.ctl:test-1
+sanhook --drive 0x80 iscsi:192.168.5.140:::1:iqn.2005-10.org.freenas.ctl:test-1
+sanboot --drive 0x80
 
 goto custom_exit
