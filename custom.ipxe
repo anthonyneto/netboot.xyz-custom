@@ -24,6 +24,6 @@ goto custom_exit
 
 :iscsi_test
 sleep 3
-sanboot iscsi://192.168.5.140/iqn.2005-10.org.freenas.ctl:test-1
+sanboot iscsi:192.168.5.140::::iqn.2005-10.org.freenas.ctl:test-1
 
 goto custom_exit
