@@ -24,6 +24,18 @@ goto custom_exit
 
 :iscsi_test
 echo Booting from iSCSI Target...
-sanhook --drive 0x80 iscsi:192.168.5.140:6:3260:0:iqn.2005-10.org.freenas.ctl:test-1
-sanboot --drive 0x80
+
+# Set up the iSCSI target and parameters
+set iscsi_target_ip 192.168.5.140
+set iscsi_target_port 3260
+set iscsi_target_iqn iqn.2005-10.org.freenas.ctl:test-1
+set iscsi_lun 0  # Set LUN to 0 (or modify if needed)
+
+# Attempt to connect to the iSCSI target using sanhook
+echo "Connecting to iSCSI target ${iscsi_target_iqn} at ${iscsi_target_ip}:${iscsi_target_port}..."
+sanhook iscsi:${iscsi_target_ip}:${iscsi_target_port}:${iscsi_target_iqn}  # Hook the iSCSI device
+
+# Boot from the iSCSI target
+sanboot iscsi:${iscsi_target_ip}::::${iscsi_target_iqn}:${iscsi_lun}
+
 goto custom_exit
