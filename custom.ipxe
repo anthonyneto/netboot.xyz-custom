@@ -23,33 +23,6 @@ boot
 goto custom_exit
 
 :iscsi_test
-echo "Attempting to boot from iSCSI target..."
-
-# Set up iSCSI target parameters
-set iscsi_target_ip 192.168.5.140        # iSCSI target IP address
-set iscsi_target_port 3260               # Default iSCSI port
-set iscsi_target_iqn iqn.2005-10.org.freenas.ctl:test-1  # iSCSI Target IQN
-set iscsi_lun 0                          # LUN number (0 is usually used for boot LUN)
-
-# Debugging: Check parameters
-echo "Target IP: ${iscsi_target_ip}"
-echo "Target Port: ${iscsi_target_port}"
-echo "Target IQN: ${iscsi_target_iqn}"
-echo "LUN: ${iscsi_lun}"
-
-# iPXE initiator IQN is not necessary if TrueNAS allows all initiators
-# Optionally, you can set the initiator IQN explicitly if needed:
-# set initiator_iqn iqn.2010-04.org.ipxe:${hostname}
-
-# Debug output
-# echo "Using initiator IQN: ${initiator_iqn}"
-
-# Try to connect to the iSCSI target
-echo "Connecting to iSCSI target: ${iscsi_target_ip}:::${iscsi_lun}:${iscsi_target_iqn}..."
-sanhook iscsi:${iscsi_target_ip}::::${iscsi_lun}:${iscsi_target_iqn}
-
-# Boot from the iSCSI target
-echo "Booting from iSCSI target ${iscsi_target_iqn}..."
-sanboot iscsi:${iscsi_target_ip}::::${iscsi_lun}:${iscsi_target_iqn}
+sanboot iscsi:192.168.5.140:::1:iqn.2005-10.org.freenas.ctl:test-1
 
 goto custom_exit
