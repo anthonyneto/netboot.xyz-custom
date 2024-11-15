@@ -25,24 +25,25 @@ goto custom_exit
 :iscsi_test
 echo "Attempting to boot from iSCSI target..."
 
-# Set up iSCSI parameters
-set iscsi_target_ip 192.168.5.140
-set iscsi_target_port 3260
-set iscsi_target_iqn iqn.2005-10.org.freenas.ctl:test-1
-set iscsi_lun 0
+# Set up iSCSI target parameters
+set iscsi_target_ip 192.168.5.140        # iSCSI target IP address
+set iscsi_target_port 3260               # Default iSCSI port
+set iscsi_target_iqn iqn.2005-10.org.freenas.ctl:test-1  # iSCSI Target IQN
+set iscsi_lun 0                          # LUN number (0 is usually used for boot LUN)
 
-# Debugging output
+# Debugging: Check parameters
 echo "Target IP: ${iscsi_target_ip}"
 echo "Target Port: ${iscsi_target_port}"
 echo "Target IQN: ${iscsi_target_iqn}"
 echo "LUN: ${iscsi_lun}"
 
-# Hook the iSCSI device
-echo "Connecting to iSCSI target: ${iscsi_target_ip}:${iscsi_target_port}:${iscsi_target_iqn}..."
-sanhook iscsi:${iscsi_target_ip}:${iscsi_target_port}:${iscsi_target_iqn}
+# Correct iSCSI connection string
+# This follows the format: iscsi:<target-ip>::::<LUN>:<iqn>
+echo "Connecting to iSCSI target: ${iscsi_target_ip}:::${iscsi_lun}:${iscsi_target_iqn}..."
+sanhook iscsi:${iscsi_target_ip}::::${iscsi_lun}:${iscsi_target_iqn}
 
 # Boot from the iSCSI target
 echo "Booting from iSCSI target ${iscsi_target_iqn}..."
-sanboot iscsi:${iscsi_target_ip}::::${iscsi_target_iqn}:${iscsi_lun}
+sanboot iscsi:${iscsi_target_ip}::::${iscsi_lun}:${iscsi_target_iqn}
 
 goto custom_exit
