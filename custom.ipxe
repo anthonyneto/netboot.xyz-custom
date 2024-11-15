@@ -28,7 +28,5 @@ set target_ip 192.168.5.140
 set target_iqn iqn.2005-10.org.freenas.ctl:test-1
 set target_port 3260
 set target_luns 0
-iscsi ${target_ip} ${target_port} ${target_iqn}
-sleep 3
 sanboot iscsi:${target_ip}::::${target_iqn}:${target_luns}
 goto custom_exit
