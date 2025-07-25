@@ -1,19 +1,13 @@
 #!ipxe
-
 :custom
 clear custom_choice
-menu Custom Github Menu
-item --gap Testing
-item flatcar_live ${space} Flatcar Live
-item truenas_scale ${space} Truenas Scale
-item iscsi_test ${space} Iscsi Test
-choose custom_choice || goto custom_exit
-echo ${cls}
-goto ${custom_choice}
+menu Custom GitHub Menu
+item --gap Testing Options
+item flatcar_live    ${space} Flatcar Live
+item hpe_ephemeral   ${space} HPE Ephemeral
+item iscsi_test      ${space} iSCSI Test
+choose --default custom_exit --timeout 15000 custom_choice && goto ${custom_choice}
 goto custom_exit
-
-:custom_exit
-exit
 
 :flatcar_live
 set base-url http://192.168.5.40/flatcar/current
@@ -22,8 +16,18 @@ initrd ${base-url}/flatcar_production_pxe_image.cpio.gz
 boot
 goto custom_exit
 
-:iscsi_test
-sleep 3
-sanboot iscsi:192.168.5.140::::iqn.2005-10.org.freenas.ctl:test-1
-
+:hpe_ephemeral
+set mirror https://stable.release.flatcar-linux.net/amd64-usr/current
+echo Booting Flatcar Live via PXE...
+kernel ${mirror}/flatcar_production_pxe.vmlinuz flatcar.first_boot=1 ignition.config.url=https://gist.githubusercontent.com/anthonyneto/f4eb5c2f4141d927d6fbb4299ce8485e/raw/flatcar-iscsi.json
+initrd ${mirror}/flatcar_production_pxe_image.cpio.gz
+boot
 goto custom_exit
+
+:iscsi_test
+echo Booting iSCSI test SAN...
+sanboot iscsi:192.168.5.188::::iqn.2005-10.org.freenas.ctl:hpe-docker
+goto custom_exit
+
+:custom_exit
+exit
