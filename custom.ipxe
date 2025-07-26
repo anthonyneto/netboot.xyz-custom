@@ -1,6 +1,6 @@
 #!ipxe
 :custom
-clear
+clear custom_choice
 menu Main
 item --gap Options
 item flatcar_live    Flatcar Live
