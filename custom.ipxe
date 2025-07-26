@@ -1,18 +1,16 @@
 #!ipxe
 :custom
-clear custom_choice
+clear menu
 menu Main
 item --gap Options
 item flatcar_live    Flatcar Live
-item gist_menu   Gist Menu
+item gist_menu       Gist Menu
 choose --default custom_exit --timeout 15000 target && goto ${target}
 goto custom_exit
 
 :flatcar_live
-echo Booting Flatcar Live
-kernel https://boot.netboot.xyz/memdisk iso raw
-initrd http://netbootxyz.internal/flatcar_production_iso_image.iso
-boot
+echo Booting Flatcar Live via sanboot...
+sanboot --no-describe http://netbootxyz.internal/flatcar_production_iso_image.iso
 goto custom_exit
 
 :gist_menu
